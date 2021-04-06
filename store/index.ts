@@ -18,16 +18,16 @@ const Store = types
         data: types.array(Prospect), // 4
     })
     .actions((self) => {
-        let timer: any
-        const start = () => {
-            timer = setInterval(() => {
-                // mobx-state-tree doesn't allow anonymous callbacks changing data.
-                // Pass off to another action instead (need to cast self as any
-                // because typescript doesn't yet know about the actions we're
-                // adding to self here)
-                ;(self as any).update()
-            }, 1000)
-        }
+        // let timer: any
+        // const start = () => {
+        //     timer = setInterval(() => {
+        //         // mobx-state-tree doesn't allow anonymous callbacks changing data.
+        //         // Pass off to another action instead (need to cast self as any
+        //         // because typescript doesn't yet know about the actions we're
+        //         // adding to self here)
+        //         ;(self as any).update()
+        //     }, 1000)
+        // }
         const update = flow(function* () {
             self.lastUpdate = new Date(Date.now())
             self.light = true;
@@ -44,9 +44,9 @@ const Store = types
                 // The action will return a promise that resolves to the returned value
                 // (or rejects with anything thrown from the action)
             })
-        const stop = () => {
-            clearInterval(timer)
-        }
+        // const stop = () => {
+        //     clearInterval(timer)
+        // }
         const addItem = (item: string) => {
             self.data.replace([...self.data, {id: 765, name: item}])
             // const id = self.data.reduce((maxId, todo) => Math.max(todo.id, maxId), -1) + 1
@@ -55,7 +55,7 @@ const Store = types
             //     name: item
             // })
         }
-        return { start, stop, update, addItem }
+        return { update, addItem }
     })
 
 export type IStore = Instance<typeof Store>

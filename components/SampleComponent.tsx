@@ -11,7 +11,7 @@ interface IOwnProps {
 }
 
 const SampleComponent: React.FC<IOwnProps> = observer((props) => {
-    const { lastUpdate, light, start, stop, addItem } = useStore('');
+    const { addItem } = useStore('');
     const [value, setValue] = React.useState('');
     const handleAddText = () => addItem(value);
 
@@ -19,12 +19,12 @@ const SampleComponent: React.FC<IOwnProps> = observer((props) => {
         setValue(e.target.value);
     }
 
-    useEffect(() => {
-        start()
-        return () => {
-            stop()
-        }
-    }, [start, stop])
+    // useEffect(() => {
+    //     start()
+    //     return () => {
+    //         stop()
+    //     }
+    // }, [start, stop])
 
     return (
         <div>

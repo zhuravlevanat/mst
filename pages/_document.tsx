@@ -3,7 +3,7 @@ import { ServerStyleSheet } from 'styled-components';
 import React from 'react';
 import Meta from 'components/common/Document/Meta';
 import FontLinks from 'components/common/Document/FontLinks';
-import { fonts } from 'public/static/fonts/style';
+// import { fonts } from 'public/static/fonts/style';
 
 export default class MyDocument extends Document {
     render() {
@@ -42,7 +42,7 @@ MyDocument.getInitialProps = async (ctx) => {
             styles: (
                 <>
                     {/* eslint-disable-next-line react/no-danger */}
-                    <style dangerouslySetInnerHTML={{ __html: fonts }}/>
+                    {/*<style dangerouslySetInnerHTML={{ __html: fonts }}/>*/}
                     {initialProps.styles}
                     {sheets.getStyleElement()}
                 </>
