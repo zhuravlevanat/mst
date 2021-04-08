@@ -1,13 +1,9 @@
 import { Provider } from 'mobx-react'
-import { useUsersStore } from '../store/users'
-import { useProspectsStore } from '../store/prospects'
+import rootStore from '../store'
 
 export default function App({ Component, pageProps }) {
-    const users = useUsersStore(pageProps?.initialState?.users);
-    const prospects = useProspectsStore(pageProps?.initialState?.prospects);
-
     return (
-        <Provider users={users} prospects={prospects}>
+        <Provider {...rootStore(pageProps?.initialState)}>
             <Component {...pageProps} />
         </Provider>
     )
