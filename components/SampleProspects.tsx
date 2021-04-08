@@ -1,17 +1,17 @@
 import React, { useEffect } from 'react'
 import { observer } from 'mobx-react-lite'
 import Link from 'next/link'
-import { UsersStore, useUsersStore } from '../store/users'
-import List from './List'
+import { useProspectsStore } from '../store/prospects'
+import ListsProspects from "./ListsProspects";
 
 interface IOwnProps {
-    store?: UsersStore
+    store?: any;
     title: string
     linkTo: string
 }
 
 const SampleComponent: React.FC<IOwnProps> = observer((props) => {
-    const { addItem } = useUsersStore('');
+    const { addItem } = useProspectsStore('');
     const [value, setValue] = React.useState('');
     const handleAddText = () => addItem(value);
 
@@ -19,7 +19,7 @@ const SampleComponent: React.FC<IOwnProps> = observer((props) => {
         setValue(e.target.value);
     }
 
-   return (
+    return (
         <div>
             <h1>{props.title}</h1>
             <nav>
@@ -29,7 +29,7 @@ const SampleComponent: React.FC<IOwnProps> = observer((props) => {
             </nav>
             <input type="text" value={value} onChange={handleChange}/>
             <button onClick={handleAddText}>Add text</button>
-            <List />
+            <ListsProspects />
         </div>
     )
 })

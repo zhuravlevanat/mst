@@ -1,36 +1,35 @@
 import {applySnapshot, flow, Instance, types} from "mobx-state-tree";
 import {useMemo} from "react";
 import {getUsers} from "api/Users";
-import {getProspects} from "../../api/Prospects";
 
-let store: ProspectsStore | undefined
+let store: UsersStore | undefined
 
-const Prospect = types
+const User = types
     .model({
         id: types.identifierNumber,
-        name: types.string// 4
+        title: types.string// 4
     })
 
-const ProspectsStore = types
+const UsersStore = types
     .model({
-        data: types.array(Prospect), // 4
+        data: types.array(User), // 4
     })
     .actions((self) => {
         const update = flow(function* () {
             try {
-                self.data = yield getProspects();
+                self.data = yield getUsers();
             } catch (error) {
                 console.error("Failed to fetch projects", error)
             }
         })
         const addItem = (item: string) => {
-            self.data.replace([...self.data, {id: 765, name: item}])
+            self.data.replace([...self.data, {id: 765, title: item}])
         }
         return { update, addItem }
     })
 
-export function initializeProspectsStore(snapshot = null) {
-    const _store = store ?? ProspectsStore.create({ data: [] })
+export function initializeUserStore(snapshot = null) {
+    const _store = store ?? UsersStore.create({ data: [] })
 
     if (snapshot) {
         applySnapshot(_store, snapshot)
@@ -41,9 +40,9 @@ export function initializeProspectsStore(snapshot = null) {
     return store
 }
 
-export function useProspectsStore(initialState: any) {
-    return useMemo(() => initializeProspectsStore(initialState), [initialState])
+export function useUsersStore(initialState: any) {
+    return useMemo(() => initializeUserStore(initialState), [initialState])
 }
 
 
-export type ProspectsStore = Instance<typeof ProspectsStore>
+export type UsersStore = Instance<typeof UsersStore>
